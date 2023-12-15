@@ -1,0 +1,28 @@
+// https://github.com/iXerxes/OSTW_Base32ToNum
+//
+// A subroutine to convert a string in base 32 to a base 10 number.
+//
+// Battle.net: Xerxes#21917
+// Discord: unemployedninja
+
+private String BASE_VALUES: "0123456789ABCDEFGHIJKLMNOPQRSTUV";
+private Number BASE_CONVERT: 32;
+
+Number base32ToNum(String input) "[Sub] base32ToNum(string)"
+{
+    define base32ToNum_counter = 0;
+    define base32ToNum_index = 0;
+
+    while (base32ToNum_index < StringLength(input))
+    {
+        base32ToNum_counter += IndexOfStringChar(BASE_VALUES, CharInString(input, StringLength(input) - base32ToNum_index - 1)) * (BASE_CONVERT ^ base32ToNum_index);
+        base32ToNum_index += 1;
+    }
+
+    return base32ToNum_counter;
+}
+
+rule: "test"
+{
+    LogToInspector(base32ToNum("65VG"));
+}
